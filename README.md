@@ -44,9 +44,10 @@ Wind degree = 310°
 14:33
 14:33
 Fetching Weather...				//THIS SHOULD SHOW NEW WEATHER DATA ALSO
-14:33						//It just skips over it.
+14:33						          //It just skips over it.
 14:33
 14:33
+
 
 
 Once that's resolved, all that's left is getting the weather data to display in the zones.  
