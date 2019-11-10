@@ -328,23 +328,12 @@ void fetch(){
     //HOPEFULLY this section will retrieve weather updates.  Hasn't worked yet. :( 
 
 ///=======================================================
-//          while ( WiFi.status() != WL_CONNECTED )
-//          {
-//          delay(500);
-//          Serial.print(".");
-//          }
-//          Serial.println("connected");
-//          delay(1000);
 
-////////////  Since nothing's working, I just threw these in for now.
-        tempF=73.7;
-        tempC=23.2;
-        humidity=16;
-        
-///=======================================================
-  
+    Serial.println(" ");
+    Serial.println("This is where the weather should be. ");
+    Serial.println(" ");
 if (WiFi.status() == WL_CONNECTED) //Check WiFi connection status
-{ 
+{
 HTTPClient http; //Declare an object of class HTTPClient
 
 // specify request destination
@@ -353,7 +342,7 @@ http.begin("http://api.openweathermap.org/data/2.5/weather?q=" + Location + "&AP
 int httpCode = http.GET(); // send the request
 
 if (httpCode > 0) // check the returning code
-{ 
+{
 String payload = http.getString(); //Get the request response payload
 
 DynamicJsonBuffer jsonBuffer(512);
@@ -364,30 +353,25 @@ if (!root.success()) {
 Serial.println(F("Parsing failed!"));
 return;
 }
-      
-      float tempC = (float)(root["main"]["temp"]) - 273.15; // get temperature in °C
-      float tempF = (float)(root["main"]["temp"]) * 9 / 5 - 459.67; // get temperature in °F
-      int humidity = root["main"]["humidity"]; // get humidity in %
-      float pressure = (float)(root["main"]["pressure"]) / 1000; // get pressure in bar
-      float wind_speed = (float)(root["wind"]["speed"]) * 2.237; // get wind speed in m/s
-      int wind_degree = root["wind"]["deg"]; // get wind degree in °
-      
 
-///=======================================================
-      
-      // print data
-      Serial.printf("Temperature = %.2f°C\r\n", tempC);
-      Serial.printf("Temperature = %.2f°F\r\n", tempF);
-      Serial.printf("Humidity = %d %%\r\n", humidity);
-      Serial.printf("Pressure = %.3f bar\r\n", pressure);
-      Serial.printf("Wind speed = %.1f MPH\r\n", wind_speed);
-      Serial.printf("Wind degree = %d°\r\n\r\n", wind_degree);
+float tempC = (float)(root["main"]["temp"]) - 273.15; // get temperature in °C
+float tempF = (float)(root["main"]["temp"]) * 9 / 5 - 459.67; // get temperature in °F
+int humidity = root["main"]["humidity"]; // get humidity in %
+float pressure = (float)(root["main"]["pressure"]) / 1000; // get pressure in bar
+float wind_speed = (float)(root["wind"]["speed"]) * 2.237; // get wind speed in m/s
+int wind_degree = root["wind"]["deg"]; // get wind degree in °
 
-///=======================================================
+// print data
+Serial.printf("Temperature = %.1f°C\r\n", tempC);
+Serial.printf("Temperature = %.1f°F\r\n", tempF);
+Serial.printf("Humidity = %d %%\r\n", humidity);
+//Serial.printf("Pressure = %.3f bar\r\n", pressure);
+Serial.printf("Wind speed = %.1f MPH\r\n\r\n", wind_speed);
+//Serial.printf("Wind degree = %d°\r\n\r\n", wind_degree);
 
 }
 
-      ////http.end(); //Close connection
+http.end(); //Close connection
 
 }
 
