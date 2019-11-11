@@ -361,7 +361,7 @@ DynamicJsonBuffer jsonBuffer(512);
 // Parse JSON object
 JsonObject& root = jsonBuffer.parseObject(payload);
 if (!root.success()) {
-Serial.println(F("Parsing failed!"));
+Serial.println(("Parsing failed!"));
 return;
 }
 
